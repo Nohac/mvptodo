@@ -1,0 +1,87 @@
+type User implements Node {
+    id: ID!
+    name: String
+    email: String
+    todos: TodoConnection
+}
+
+type Todo implements Node {
+    id: ID!
+    # The ID of the owner (User)
+    owner: ID!
+    # Title of the todo
+    title: String
+    # Descriptoin of the todo
+    description: String
+    # The status of the todo (completed or not)
+    status: Boolean
+}
+
+type Query {
+    # Returns the loged in user based on a 
+    # session token in the 'Authorization' header
+    viewer: User
+
+    # Returns a connection of the authorized users
+    # list of todos
+    todos: TodoConnection
+}
+
+type Mutation {
+    registerUser(input: RegisterUserInput!): RegisterUserPayload
+    loginUser(input: LoginUserInput!): LoginUserPayload
+    logoutUser: String
+
+    addTodo(input: AddTodoInput!): AddTodoPayload
+    deleteTodo(input: DeleteTodoInput!): DeleteTodoPayload
+    updateTodo(input: UpdateTodoInput!): UpdateTodoPayload
+}
+
+input RegisterUserInput {
+    name: String!
+    email: String!
+    password: String!
+    pwrepeate: String!
+}
+
+type RegisterUserPayload {
+    user: User
+}
+
+input LoginUserInput {
+    email: String!
+    password: String!
+}
+
+type LoginUserPayload {
+    user: User
+}
+
+input AddTodoInput {
+    title: String!
+    description: String
+    status: Boolean
+}
+
+type AddTodoPayload {
+    todo: Todo
+}
+
+input DeleteTodoInput {
+    todoID: ID!
+}
+
+type DeleteTodoPayload {
+    deletedTodoID: ID
+}
+
+input UpdateTodoInput {
+    todoID: ID!
+    title: String
+    description: String
+    status: Boolean
+}
+
+type UpdateTodoPayload {
+    todo: Todo
+}

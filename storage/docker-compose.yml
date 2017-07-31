@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb:10
+    ports:
+      - '3306:3306'
+    environment:
+      - TZ=Europe/Oslo
+      - MYSQL_USER=devuser
+      - MYSQL_PASSWORD=devpassword
+      - MYSQL_ROOT_PASSWORD=devpassword
+      - MYSQL_DATABASE=mvptodo
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.6
+    ports:
+      - '1337:80'
+    environment:
+      - PMA_HOST=db

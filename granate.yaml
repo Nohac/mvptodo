@@ -1,0 +1,7 @@
+language: go
+output:
+  package: github.com/noh4ck/mvptodo
+  schema: schema
+  models: models
+schemas:
+  - mvptodo.graphql
